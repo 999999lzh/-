@@ -1,0 +1,49 @@
+tasks = []
+
+while True:
+    print("\n任务清单管理系统")
+    print("1. 添加新任务")
+    print("2. 显示所有任务")
+    print("3. 标记任务为已完成")
+    print("4. 退出程序")
+    
+    choice = input("请选择操作（1-4）：").strip()
+    
+    if choice == "1":
+        
+        new_task = input("请输入新任务：").strip()
+        if new_task:
+            tasks.append({"任务": new_task, "状态": "未完成"})
+            print(f"任务 '{new_task}' 已添加！")
+        else:
+            print("任务内容不能为空！")
+    
+    elif choice == "2":
+        
+        if not tasks:
+            print("当前没有任务！")
+        else:
+            print("\n任务清单：")
+            for index, task in enumerate(tasks, start=1):
+                print(f"{index}. {task['任务']} - {task['状态']}")
+    
+    elif choice == "3":
+        
+        if not tasks:
+            print("当前没有任务可标记！")
+        else:
+            try:
+                task_number = int(input("请输入要标记为已完成的任务编号：").strip())
+                if 1 <= task_number <= len(tasks):
+                    tasks[task_number - 1]["状态"] = "已完成"
+                    print(f"任务 '{tasks[task_number - 1]['任务']}' 已标记为已完成！")
+                else:
+                    print("任务编号无效！")
+            except ValueError:
+                print("请输入有效的任务编号！")
+    
+    elif choice == "4":
+        print("程序已退出，再见！")
+        break
+    else:
+        print("无效选择，请输入1-4！")
